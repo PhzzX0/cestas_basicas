@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow mt-5">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="text-center">Criar Nova Cesta</h2>
+                </div>
+                <div class="card-body">
+                    {% if form.errors %}
+                        <div class="alert alert-danger">
+                            <ul>
+                                {% for field, errors in form.errors.items %}
+                                    {% for error in errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="id_descricao" class="form-label">
+                                <i class="fas fa-shopping-basket"></i> Descrição
+                            </label>
+                            <input type="text" name="descricao" id="id_descricao" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_quantidade" class="form-label">
+                                <i class="fas fa-boxes"></i> Quantidade
+                            </label>
+                            <input type="number" name="quantidade" id="id_quantidade" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_doador" class="form-label">
+                                <i class="fas fa-user"></i> Doador
+                            </label>
+                            <select name="doador" id="id_doador" class="form-control" required>
+                                {% for doador in form.doador.field.queryset %}
+                                    <option value="{{ doador.id }}">{{ doador.nome }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_instituicao" class="form-label">
+                                <i class="fas fa-building"></i> Instituição
+                            </label>
+                            <select name="instituicao" id="id_instituicao" class="form-control" required>
+                                {% for instituicao in form.instituicao.field.queryset %}
+                                    <option value="{{ instituicao.id }}">{{ instituicao.nome }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Salvar</button>
+                    </form>
+                    <hr>
+                    <p class="text-center">
+                        <a href="{% url 'lista_cestas' %}" class="btn btn-secondary w-100">Voltar para a lista</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

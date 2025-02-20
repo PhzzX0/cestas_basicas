@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="jumbotron text-center mt-5 bg-light p-5 rounded shadow">
+        <h1 class="display-4">Bem-vindo ao Gerenciamento de Cestas Básicas</h1>
+        <p class="lead">
+            Uma plataforma para conectar doadores a instituições de caridade e gerenciar doações de cestas básicas.
+        </p>
+        <hr class="my-4">
+        <p>
+            Aqui você pode cadastrar instituições, doadores e cestas básicas, além de visualizar todas as doações realizadas.
+        </p>
+        <div class="row mt-4">
+            <div class="col-md-4 mb-3">
+                <div class="card h-100 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="fas fa-building"></i> Instituições
+                        </h5>
+                        <p class="card-text">
+                            Cadastre e visualize as instituições beneficiadas pelas doações.
+                        </p>
+                        <a href="{% url 'lista_instituicoes' %}" class="btn btn-primary w-100">
+                            Ver Instituições
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card h-100 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="fas fa-users"></i> Doadores
+                        </h5>
+                        <p class="card-text">
+                            Cadastre e visualize os doadores que contribuem com as cestas básicas.
+                        </p>
+                        <a href="{% url 'lista_doadores' %}" class="btn btn-primary w-100">
+                            Ver Doadores
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card h-100 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="fas fa-shopping-basket"></i> Cestas
+                        </h5>
+                        <p class="card-text">
+                            Cadastre e visualize as cestas básicas doadas às instituições.
+                        </p>
+                        <a href="{% url 'lista_cestas' %}" class="btn btn-primary w-100">
+                            Ver Cestas
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-5">
+            {% if user.is_authenticated %}
+                <p class="lead">
+                    Olá, <strong>{{ user.username }}</strong>! O que você gostaria de fazer hoje?
+                </p>
+            {% else %}
+                <p class="lead">
+                    Faça login ou registre-se para começar a usar a plataforma.
+                </p>
+                <a href="{% url 'login' %}" class="btn btn-success btn-lg mr-3">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </a>
+                <a href="{% url 'registro' %}" class="btn btn-outline-success btn-lg">
+                    <i class="fas fa-user-plus"></i> Registro
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
